@@ -1,5 +1,5 @@
 # CyberShield 🛡️
-
+![CyberShield Dashboard](screenshots/dashboard-professional.png)
 ## Local Security Monitoring & Brute-Force Detection Lab
 
 CyberShield is a local cybersecurity lab project that demonstrates a simple security monitoring workflow.
