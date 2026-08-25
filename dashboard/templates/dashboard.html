@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CyberShield | SOC Dashboard</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #070b14;
+            color: #e5e7eb;
+        }
+
+        .topbar {
+            height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 35px;
+            background: #0b1120;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .shield {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #111827;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            font-size: 22px;
+        }
+
+        .brand h1 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .brand span {
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        .online {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            color: #4ade80;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .online-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #4ade80;
+            box-shadow: 0 0 12px #4ade80;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: auto;
+            padding: 35px;
+        }
+
+        .welcome {
+            margin-bottom: 28px;
+        }
+
+        .welcome h2 {
+            margin: 0 0 8px;
+            font-size: 28px;
+        }
+
+        .welcome p {
+            margin: 0;
+            color: #64748b;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .card {
+            background: #0d1424;
+            border: 1px solid #1e293b;
+            border-radius: 14px;
+            padding: 23px;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+        }
+
+        .card-title {
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        .card-icon {
+            font-size: 20px;
+        }
+
+        .number {
+            font-size: 34px;
+            font-weight: bold;
+            color: #f8fafc;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 20px;
+            margin-top: 22px;
+        }
+
+        .section {
+            background: #0d1424;
+            border: 1px solid #1e293b;
+            border-radius: 14px;
+            padding: 24px;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .section-title h2 {
+            margin: 0;
+            font-size: 17px;
+        }
+
+        .badge {
+            font-size: 11px;
+            color: #94a3b8;
+            background: #111827;
+            padding: 6px 10px;
+            border-radius: 7px;
+        }
+
+        .security-alert {
+            padding: 16px;
+            margin-bottom: 12px;
+            background: #160d12;
+            border: 1px solid #3f1d2a;
+            border-left: 4px solid #ef4444;
+            border-radius: 9px;
+        }
+
+        .alert-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .alert-title {
+            color: #f87171;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .severity {
+            background: #7f1d1d;
+            color: #fecaca;
+            padding: 5px 9px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .alert-type {
+            color: #fca5a5;
+            font-size: 12px;
+            margin-bottom: 6px;
+        }
+
+        .alert-text {
+            color: #cbd5e1;
+            font-size: 13px;
+            word-break: break-word;
+        }
+
+        .event {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 13px;
+            margin-bottom: 8px;
+            background: #090f1c;
+            border: 1px solid #172033;
+            border-radius: 8px;
+            color: #cbd5e1;
+            font-size: 12px;
+        }
+
+        .event-icon {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #111827;
+            border-radius: 7px;
+        }
+
+        .empty {
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .footer {
+            text-align: center;
+            color: #475569;
+            font-size: 11px;
+            padding: 30px 0 5px;
+        }
+
+        @media (max-width: 900px) {
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            .topbar {
+                padding: 0 20px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <div class="brand">
+        <div class="shield">🛡️</div>
+
+        <div>
+            <h1>CyberShield</h1>
+            <span>Security Operations Center</span>
+        </div>
+    </div>
+
+    <div class="online">
+        <div class="online-dot"></div>
+        SYSTEM ONLINE
+    </div>
+
+</header>
+
+
+<main class="container">
+
+    <div class="welcome">
+        <h2>Security Overview</h2>
+        <p>Real-time monitoring of authentication activity and security alerts.</p>
+    </div>
+
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">LOGIN ATTEMPTS</div>
+                <div class="card-icon">📊</div>
+            </div>
+            <div class="number">{{ login_count }}</div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">SUCCESSFUL LOGINS</div>
+                <div class="card-icon">✅</div>
+            </div>
+            <div class="number">{{ successful_count }}</div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">FAILED LOGINS</div>
+                <div class="card-icon">❌</div>
+            </div>
+            <div class="number">{{ failed_count }}</div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">SECURITY ALERTS</div>
+                <div class="card-icon">🚨</div>
+            </div>
+            <div class="number">{{ alert_count }}</div>
+        </div>
+
+    </div>
+
+
+    <div class="layout">
+
+        <section class="section">
+
+            <div class="section-title">
+                <h2>🚨 Security Alerts</h2>
+                <div class="badge">DETECTION ENGINE</div>
+            </div>
+
+
+            {% if recent_alerts %}
+
+                {% for alert in recent_alerts %}
+
+                    <div class="security-alert">
+
+                        <div class="alert-header">
+
+                            <div class="alert-title">
+                                SECURITY EVENT DETECTED
+                            </div>
+
+                            <div class="severity">
+                                HIGH
+                            </div>
+
+                        </div>
+
+                        <div class="alert-type">
+                            Attack Type: Brute Force / Repeated Login Failures
+                        </div>
+
+                        <div class="alert-text">
+                            {{ alert }}
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <div class="empty">
+                    No security alerts detected.
+                </div>
+
+            {% endif %}
+
+        </section>
+
+
+        <section class="section">
+
+            <div class="section-title">
+                <h2>📋 Recent Events</h2>
+                <div class="badge">AUTHENTICATION LOG</div>
+            </div>
+
+
+            {% if recent_events %}
+
+                {% for event in recent_events %}
+
+                    <div class="event">
+
+                        <div class="event-icon">
+                            🔐
+                        </div>
+
+                        <div>
+                            {{ event }}
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <div class="empty">
+                    No login events recorded.
+                </div>
+
+            {% endif %}
+
+        </section>
+
+    </div>
+
+
+    <div class="footer">
+        CyberShield SOC Dashboard • Local Security Monitoring Lab
+    </div>
+
+</main>
+
+</body>
+</html>

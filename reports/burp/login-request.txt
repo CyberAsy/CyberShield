@@ -1,0 +1,7 @@
+CyberShield Login Request
+
+Method: POST
+Target: http://127.0.0.1:5000/
+Test Username: test
+Test Password: wrong
+Result: Request intercepted successfully using Burp Suite.
